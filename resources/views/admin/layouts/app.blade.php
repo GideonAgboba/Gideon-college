@@ -31,7 +31,6 @@
         </div>
     </div>
 
-
     <script src="admin/vendor/jquery/jquery.min.js"></script>
     <script src="admin/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="admin/vendor/metisMenu/metisMenu.min.js"></script>
