@@ -14,6 +14,7 @@ class User extends Authenticatable
     protected $fillable = [
         'role_id',
         'is_active',
+        'admission_payment_hash',
         'surname',
         'firstname',
         'othername',

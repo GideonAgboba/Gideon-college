@@ -3,6 +3,13 @@
     <input type="hidden" name="_method" value="POST">
     <div class="form-group">
         <div class="row">
+            <div class="col-lg-12">
+                <input type="text" class="form-control" name="admission_payment_hash" required="" placeholder="Enter admission payment hash*">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
             <div class="col-lg-4">
                 <input type="text" class="form-control" name="surname" required="" placeholder="Surname*">
             </div>

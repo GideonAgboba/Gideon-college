@@ -14,9 +14,16 @@ class CreateFullTimeQulificationResultsTable extends Migration
     {
         Schema::create('full_time_qulification_results', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->index()->nullable();
             $table->string('examination_number');
-            $table->string('subject');
-            $table->string('grade');
+            $table->string('subject1');
+            $table->string('grade1');
+            $table->string('subject2');
+            $table->string('grade2');
+            $table->string('subject3');
+            $table->string('grade3');
+            $table->string('subject4');
+            $table->string('grade4');
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark home-bg-dark fixed-top" id="mainNav">
     <div class="navbar-brand">
         <a href="#" class="navbar-logo pull-left"><img src="logo.png" alt="Gideon"></a>
-        <a class="text-white nav-link" href="{{url('/')}}">Colibs College</a>
+        <a class="text-white nav-link" href="{{url('/')}}">Gideon College</a>
     </div>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,6 +14,13 @@
             <i class="fa fa-fw fa-user"></i>
             <!-- #252525 -->
             <span class="nav-link-text">My Profile</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admission letter">
+          <a class="nav-link" href="{{url('/useradmissionletter')}}">
+            <i class="fa fa-fw fa-file"></i>
+            <!-- #252525 -->
+            <span class="nav-link-text">Admission letter</span>
           </a>
         </li>
 
@@ -57,10 +64,10 @@
           </a>
           <ul class="sidenav-second-level collapse" id="payments">
             <li>
-              <a href="navbar.html">Fee Payments/Reciept</a>
+              <a href="{{url('/schoolfeespayments')}}">Fee Payments/Reciept</a>
             </li>
             <li>
-              <a href="cards.html">Other payments</a>
+              <a href="{{url('/otherpayments')}}">Other payments</a>
             </li>
           </ul>
         </li>

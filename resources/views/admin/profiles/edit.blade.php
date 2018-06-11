@@ -92,7 +92,7 @@ $(document).ready(function(){
                         </tr>
                     </thead>
                     <tbody>
-                        @if($users = App\User::where('role_id', 2)->get())
+                        @if($users = App\User::where('application_status', 1)->where('role_id', 2)->get())
                             @foreach($users as $user)
                             <tr class="odd gradeX">
                                 <td>{{$user->id}}</td>

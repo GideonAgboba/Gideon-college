@@ -61,7 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if($users = App\User::all())
+                        @if($users = App\User::where('application_status', 1)->where('role_id', 2)->get())
                             @foreach($users as $user)
                             <tr class="odd gradeX">
                                 <td>{{$user->surname}}</td>

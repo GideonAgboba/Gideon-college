@@ -110,7 +110,7 @@
                         <li><a href="{{url('/profile')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         <li><a href="{{url('/editadminprofiles')}}"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -152,7 +152,21 @@
                         <li>
                             <a href="{{url('/adminpage')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> Prospective students<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{url('/admissionlist')}}">Pending Admission List</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/editadmissionlist')}}">Edit Admission List</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/admittedlist')}}">Admitted Students List</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li>
                             <a href="#"><i class="fa fa-cogs fa-fw"></i> Programmes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

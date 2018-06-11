@@ -264,7 +264,46 @@
                 <i class="fa fa-dashboard fa-fw"></i> More admin control
             </div>
             <div class="panel-body">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis sint saepe nihil accusamus numquam facere asperiores itaque voluptates dolore exercitationem similique eaque nesciunt incidunt atque dolor, deleniti commodi. Eligendi, sint.
+                <h3 class="text-center">ADMISSION LETTER</h3>
+                @if($pre = App\AdmissionLetter::all()->count() == 0)
+                <form class="admissionletter">
+                    <div class="form-group">
+                        {{csrf_field()}}
+                        <input type="text" name="title" placeholder="Title" class="form-control" required />
+                        <textarea name="body" class="form-control" cols="30" rows="10" placeholder="Body"required /></textarea>
+                        <input type="text" placeholder="Footer" name="footer" class="form-control"required />
+                        <button type="submit" class="btn btn-success form-control" >POST ADMISSION-LETTER</button>
+                        <button id="loading"  class="btn btn-warning form-control">
+                            <i class="loader fa fa-plus"></i> SENDING...
+                        </button>
+                        <button id="done" class="btn btn-success form-control">
+                            <i class="fa fa-check"></i> SUBMITTED
+                        </button>
+                    </div>
+                </form>
+                @else
+                    <p class="text-danger text-center">YOU HAVE A LETTER ALREADY {{App\AdmissionLetter::all()->count()}}</p>
+                    @if($presents = App\AdmissionLetter::all())
+                    @foreach($presents as $letter)
+                        <form class="updateadmissionletter">
+                            <div class="form-group">
+                                {{csrf_field()}}
+                                <input type="hidden" name="id" value="{{$letter->id}}">
+                                <input type="text" name="title" value="{{$letter->title}}" class="form-control" required />
+                                <textarea name="body" class="form-control" cols="30" rows="10" required />{{$letter->body}}</textarea>
+                                <input type="text" value="{{$letter->footer}}" name="footer" class="form-control"required />
+                                <button type="submit" class="btn btn-success form-control" >UPDATE ADMISSION-LETTER</button>
+                                <button id="loading"  class="btn btn-warning form-control">
+                                    <i class="loader fa fa-plus"></i> UPDATING...
+                                </button>
+                                <button id="done" class="btn btn-success form-control">
+                                    <i class="fa fa-check"></i> UPDATED
+                                </button>
+                            </div>
+                        </form>
+                    @endforeach
+                    @endif
+                @endif            
             </div>
         </div>
     </div>
@@ -398,6 +437,56 @@ $(document).ready(function(){
 
 });
 </script>
+
+<script>
+$(document).ready(function(){	
+	$(".admissionletter").submit(function(e){
+        var sLoader = $(this).find('#loading');
+        var done = $(this).find('#done');
+        var form_data = $(this).serialize();
+        var button_content = $(this).find('button[type=submit]');
+		button_content.fadeOut('slow');
+		done.fadeOut('slow');
+        sLoader.delay(1000).fadeIn("slow");
+
+			$.ajax({
+				url: "/submitadmisionletter",
+				type: "POST",
+				data: form_data
+			}).done(function(data){ //on Ajax success
+                sLoader.delay(2000).fadeOut("slow");
+                done.delay(4000).fadeIn('slow');
+            })
+                    e.preventDefault();
+		});
+
+});
+</script>
+<script>
+$(document).ready(function(){	
+	$(".updateadmissionletter").submit(function(e){
+        var sLoader = $(this).find('#loading');
+        var done = $(this).find('#done');
+        var form_data = $(this).serialize();
+        var button_content = $(this).find('button[type=submit]');
+		button_content.fadeOut('slow');
+		done.fadeOut('slow');
+        sLoader.delay(1000).fadeIn("slow");
+
+			$.ajax({
+				url: "/updateadmisionletter",
+				type: "POST",
+				data: form_data
+			}).done(function(data){ //on Ajax success
+                sLoader.delay(2000).fadeOut("slow");
+                done.delay(4000).fadeIn('slow');
+            })
+                    e.preventDefault();
+		});
+
+});
+</script>
+
 <script>
 $(document).ready(function(){	
 	$(".edit").submit(function(e){

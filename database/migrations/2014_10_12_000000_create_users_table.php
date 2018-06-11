@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->integer('role_id')->unsigned()->default(2)->index();
             $table->integer('is_active')->default(0);
+            $table->string('admission_payment_hash')->unique();
             $table->string('surname')->default('not available');
             $table->string('firstname')->default('not available');
             $table->string('othername')->default('not available');

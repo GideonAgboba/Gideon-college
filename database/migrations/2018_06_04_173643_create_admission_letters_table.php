@@ -15,7 +15,8 @@ class CreateAdmissionLettersTable extends Migration
         Schema::create('admission_letters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('body');
+            // $table->longText('body');
+            $table->string('body', 30000);
             $table->string('footer');
             $table->timestamps();
         });

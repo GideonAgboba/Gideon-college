@@ -122,6 +122,7 @@
 
 <script>
     function printDiv(divName){
+        
         window.print(divName);
     }
 </script>

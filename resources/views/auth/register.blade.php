@@ -15,6 +15,11 @@ $(document).ready(function(){
 	});
 });
 </script>
+<style>
+input{
+    text-align: center;
+}
+</style>
 <div id="prog-type">
     <div class="prog-type-content">
         <h1 class="text-center"> Hi. Please select your programme mode to proceed </h1>

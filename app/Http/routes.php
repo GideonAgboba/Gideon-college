@@ -24,13 +24,20 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 Route::resource('/submitregistrationform', 'Addits@submitregistrationform');
+Route::resource('/fullregistration', 'Addits@fullregistration');
 Route::resource('/submitloginform', 'Addits@submitloginform');
 Route::resource('/profilelogin', 'Addits@profilelogin');
-Route::resource('/profile', 'ProfileController@index');
 Route::get('/userslogin', function(){
     return view('users.login');
 });
 Route::resource('/usersendmessage', 'ProfileController@usersendmessage');
+Route::group(['middleware' => ['auth', 'isaddmited']], function(){    
+    Route::resource('/profile', 'ProfileController@index');
+    Route::resource('/useradmissionletter', 'ProfileController@useradmissionletter');
+    Route::resource('/schoolfeespayments', 'ProfileController@schoolfeespayments');
+    Route::resource('/otherpayments', 'ProfileController@otherpayments');
+});
+
 Route::get('/makeadmin', function(){
     return view('admin.adminregister');
 });
@@ -52,6 +59,11 @@ Route::group(['middleware' => ['auth', 'isadmin']], function(){
     Route::resource('/taskscompleted', 'AdminController@taskscompleted');
     Route::post('/adminphotoupload/{id}', 'AdminController@adminphotoupload');
     Route::post('/adminsearch', 'AdminController@adminsearch');
+    Route::resource('/admissionlist', 'AdminController@admissionlist');
+    Route::resource('/editadmissionlist', 'AdminController@editadmissionlist');
+    Route::resource('/admittedlist', 'AdminController@admittedlist');
+    Route::resource('/admitstudent', 'AdminController@admitstudent');
+    Route::resource('/unadmitstudent', 'AdminController@unadmitstudent');
 
 
     Route::resource('/fulltimeprogcreate', 'AdminController@fulltimeprogcreate');
@@ -89,4 +101,10 @@ Route::group(['middleware' => ['auth', 'isadmin']], function(){
     Route::resource('/adminsubmitregistrationform', 'AdminController@adminsubmitregistrationform');
     Route::resource('/admindeleteprofile', 'AdminController@admindeleteprofile');
     Route::resource('/admineditprofile', 'AdminController@admineditprofile');
+    Route::resource('/submitadmisionletter', 'AdminController@submitadmisionletter');
+    Route::resource('/updateadmisionletter', 'AdminController@updateadmisionletter');
 });
+
+/// /Stripe payment route
+Route::get('/addmoney/stripe', array('as'=>'addmoney.paywithstripe', 'uses'=>'AddMoneyController@payWithStripe'));
+Route::post('/addmoney/stripe', array('as'=>'addmoney.stripe', 'uses'=>'AddMoneyController@postPaymentWithStripe'));

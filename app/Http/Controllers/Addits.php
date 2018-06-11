@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\FullTimeQulificationResult;
+use App\PartTimeQulificationResult;
 use App\Http\Requests;
 
 class Addits extends Controller
@@ -87,6 +89,7 @@ class Addits extends Controller
 
     public function submitregistrationform(Request $request){
         $create_user = User::create([
+            'admission_payment_hash' => $request['admission_payment_hash'],
             'surname' => $request['surname'],
             'firstname' => $request['firstname'],
             'othername' => $request['othername'],
@@ -97,6 +100,42 @@ class Addits extends Controller
             'email' => $request['email'],
             'password' => bcrypt($request['surname'])
         ]);
+        $reged_user = User::where('email', $request->email)->first();
+        $regdate = date('y');
+        $pm = $request->programme_mode;
+        $pt = $request->programme_type;
+        function initials($str){
+            $ret = '';
+            foreach (explode(' ', $str) as $word)
+                $ret .= strtolower($word[0]);
+                return $ret;
+        }
+        $matric =  "temp-" .initials($pm) ."/" .initials($pt) ."/" .$regdate ."/" .$reged_user->id;
+        $reged_user->update([
+            'admission_payment_hash' => $request['admission_payment_hash'],
+            'surname' => $request['surname'],
+            'firstname' => $request['firstname'],
+            'othername' => $request['othername'],
+            'programme_type' => $request['programme_type'],
+            'programme_mode' => $request['programme_mode'],
+            'department' => $request['department'],
+            'phone' => $request['phone'],
+            'email' => $request['email'],
+            'matric' => $matric,
+            'password' => bcrypt($request['surname'])
+        ]);
+        $reged_user = User::where('email', $request->email)->first();
+        $id = $reged_user->id;
+        $surname = $request->surname;
+        $firstname = $request->firstname;
+        $othername = $request->othername;
+        if($request->programme_mode == 'full-time'){
+            return view('layouts.full-time-qualification-form', compact('surname', 'firstname', 'othername', 'id'));
+        }elseif($request->programme_mode == 'part-time'){
+            return view('layouts.part-time-qualification-form', compact('surname', 'firstname', 'othername', 'id'));
+        }else{
+            return '404';
+        }
         // $reged_user = User::where('email', $request->email)->first();
         // $regdate = date('y');
         // $pm = $request->programme_mode;
@@ -123,7 +162,7 @@ class Addits extends Controller
         // ]);
 
 
-        
+
         // // programme mode
         // $pm_temp = explode(' ', $request->programme_mode);
         // $pm_temp_result = '';
@@ -137,16 +176,31 @@ class Addits extends Controller
         // foreach ($pt_temp as $key => $pt_t) {
         //     $pt_temp_result = $pt_t[0] .$pt_t[2];
         // }
-        if($request->programme_mode == 'full-time'){
-            return view('layouts.full-time-qualification-form');
-        }elseif($request->programme_mode == 'part-time'){
-            return view('layouts.part-time-qualification-form');
-        }else{
-            return '404';
-        }
+        
         // $request->session()->put('successmsg', $request->surname .' ' .$request->firstname .' your registration was successful. Please make sure your matric number below is written down or copied');
         // $request->session()->put('matricmsg', $matric);
         // return redirect('/home');
+    }
+    public function fullregistration(Request $request){
+        $user = User::where('id', $request->id)->first();
+        $user_id = $user->id;
+        // now we save thier results
+        $full_time_qulification_results = FullTimeQulificationResult::create([
+            'user_id' => $user_id,
+            'examination_number' => $request->examination_number,
+            'subject1' => $request->subject1,
+            'grade1' => $request->grade1,
+            'subject2' => $request->subject2,
+            'grade2' => $request->grade2,
+            'subject3' => $request->subject3,
+            'grade3' => $request->grade3,
+            'subject4' => $request->subject4,
+            'grade4' => $request->grade4
+        ]);
+
+        $request->session()->put('successmsg', $user->surname .' ' .$user->firstname .' your registration was successful. Please make sure your matric number below is written down or copied');
+        $request->session()->put('matricmsg', $user->matric);
+        return redirect('/home');
     }
 
     public function submitloginform($request){

@@ -12,6 +12,7 @@ use App\PartTimeCourse;
 use App\User;
 use App\AdminTask;
 use App\Http\Requests;
+use App\AdmissionLetter;
 
 class AdminController extends Controller
 {
@@ -397,6 +398,48 @@ class AdminController extends Controller
     public function admineditprofile(Request $request){
         $profileupdt = User::where('matric', '=', $request->matric, 'and', 'id', $request->id)->first();
         $profileupdt->update($request->all());
+        return back();
+    }
+
+    public function admissionlist(){
+        return view('admin.students.admission-list');
+    }
+
+    public function editadmissionlist(){
+        return view('admin.students.edit-admission-list');
+    }
+
+    public function admittedlist(){
+        return view('admin.students.admitted-list');
+    }
+    public function admitstudent(Request $request){
+        $user = User::find($request->id)->update([
+            'application_status' => 1
+        ]);
+        return back();
+    }
+    public function unadmitstudent(Request $request){
+        $user = User::find($request->id)->update([
+            'application_status' => 0
+        ]);
+        return back();
+    }
+
+    public function submitadmisionletter(Request $request){
+        $admi_response = AdmissionLetter::create([
+            'title'=> $request->title,
+            'body' => $request->body,
+            'footer' => $request->footer
+        ]);
+        return back();
+    }
+
+    public function updateadmisionletter(Request $request){
+        $admi_response = AdmissionLetter::find($request->id)->update([
+            'title'=> $request->title,
+            'body' => $request->body,
+            'footer' => $request->footer
+        ]);
         return back();
     }
 

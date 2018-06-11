@@ -98,4 +98,18 @@ class ProfileController extends Controller
         $msg = Message::create($request->all());
         return back();
     }
+    public function useradmissionletter(Request $request){
+        return view('users.admission-letter');
+    }
+
+
+
+
+
+    public function schoolfeespayments(Request $request){
+        return view('users.payments.school-fees-payment');
+    }
+    public function otherpayments(Request $request){
+        return view('users.payments.other-payment');
+    }
 }

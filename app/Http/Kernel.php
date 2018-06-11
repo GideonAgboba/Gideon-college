@@ -52,6 +52,7 @@ class Kernel extends HttpKernel
         'loggedin' => \App\Http\Middleware\LoggedIn::class,
         'completepayment' => \App\Http\Middleware\CompletePayments::class,
         'isadmin' => \App\Http\Middleware\isAdmin::class,
+        'isaddmited' => \App\Http\Middleware\IsAddmited::class,
     ];
 }
 
